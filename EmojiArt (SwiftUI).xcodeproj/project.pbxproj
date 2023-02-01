@@ -13,6 +13,7 @@
 		EFBA89E1298B0481006E42BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFBA89E0298B0481006E42BA /* Preview Assets.xcassets */; };
 		EFBA89E8298B0556006E42BA /* EmjiArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA89E7298B0556006E42BA /* EmjiArtModel.swift */; };
 		EFBA89EA298B0582006E42BA /* EmojiArtBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA89E9298B0582006E42BA /* EmojiArtBackground.swift */; };
+		EFBA89EC298B0807006E42BA /* EmojiArtDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA89EB298B0807006E42BA /* EmojiArtDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		EFBA89E0298B0481006E42BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EFBA89E7298B0556006E42BA /* EmjiArtModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmjiArtModel.swift; sourceTree = "<group>"; };
 		EFBA89E9298B0582006E42BA /* EmojiArtBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiArtBackground.swift; sourceTree = "<group>"; };
+		EFBA89EB298B0807006E42BA /* EmojiArtDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		EFBA89D8298B047D006E42BA /* EmojiArt (SwiftUI) */ = {
 			isa = PBXGroup;
 			children = (
+				EFBA89EB298B0807006E42BA /* EmojiArtDocument.swift */,
 				EFBA89E7298B0556006E42BA /* EmjiArtModel.swift */,
 				EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */,
 				EFBA89E9298B0582006E42BA /* EmojiArtBackground.swift */,
@@ -145,6 +148,7 @@
 			files = (
 				EFBA89DC298B047D006E42BA /* ContentView.swift in Sources */,
 				EFBA89E8298B0556006E42BA /* EmjiArtModel.swift in Sources */,
+				EFBA89EC298B0807006E42BA /* EmojiArtDocument.swift in Sources */,
 				EFBA89EA298B0582006E42BA /* EmojiArtBackground.swift in Sources */,
 				EFBA89DA298B047D006E42BA /* EmojiArt__SwiftUI_App.swift in Sources */,
 			);
