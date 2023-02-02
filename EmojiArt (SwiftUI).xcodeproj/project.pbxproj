@@ -66,8 +66,8 @@
 				EFBA89E9298B0582006E42BA /* EmojiArtBackground.swift */,
 				EFBA89DB298B047D006E42BA /* EmojiArtDocumentView.swift */,
 				EFBA89ED298B1EB0006E42BA /* UtilityExtensions.swift */,
-				EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */,
 				EFBA89EF298B1EC0006E42BA /* UtilityViews.swift */,
+				EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */,
 				EFBA89DD298B0481006E42BA /* Assets.xcassets */,
 				EFBA89DF298B0481006E42BA /* Preview Content */,
 			);
