@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF141485299BF38E00AE983A /* PaletteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF141484299BF38E00AE983A /* PaletteStore.swift */; };
 		EFBA89DA298B047D006E42BA /* EmojiArt__SwiftUI_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */; };
 		EFBA89DC298B047D006E42BA /* EmojiArtDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA89DB298B047D006E42BA /* EmojiArtDocumentView.swift */; };
 		EFBA89DE298B0481006E42BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFBA89DD298B0481006E42BA /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF141484299BF38E00AE983A /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 		EFBA89D6298B047D006E42BA /* EmojiArt (SwiftUI).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EmojiArt (SwiftUI).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArt__SwiftUI_App.swift; sourceTree = "<group>"; };
 		EFBA89DB298B047D006E42BA /* EmojiArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocumentView.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 		EFBA89CD298B047D006E42BA = {
 			isa = PBXGroup;
 			children = (
+				EF141484299BF38E00AE983A /* PaletteStore.swift */,
 				EFBA89D8298B047D006E42BA /* EmojiArt (SwiftUI) */,
 				EFBA89D7298B047D006E42BA /* Products */,
 			);
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFBA89F0298B1EC0006E42BA /* UtilityViews.swift in Sources */,
+				EF141485299BF38E00AE983A /* PaletteStore.swift in Sources */,
 				EFBA89DC298B047D006E42BA /* EmojiArtDocumentView.swift in Sources */,
 				EFBA89E8298B0556006E42BA /* EmjiArtModel.swift in Sources */,
 				EFBA89EE298B1EB1006E42BA /* UtilityExtensions.swift in Sources */,
