@@ -6,13 +6,13 @@
 //
 
 import UIKit
-struct EmojiArtModel {
+struct EmojiArtModel : Codable{
         var background = Background.blank
         var emojis = [Emoji]()
 private var uniqueEmojiId = 0
     
     init(){}
-    struct Emoji : Identifiable {
+    struct Emoji : Identifiable, Codable {
         var text : String
         var id: Int
         var x : Int
@@ -27,9 +27,20 @@ private var uniqueEmojiId = 0
         }
     }
     
-    
     mutating func addEmoji(_ text: String, at location: (x: Int, y: Int), size: Int) {
         uniqueEmojiId += 1
         emojis.append(Emoji(text: text, id: uniqueEmojiId, x: location.x, y: location.y, size: size))
     }
+    
+    func json() throws -> Data {
+        do {
+            return try JSONEncoder().encode(self)
+        }
+        catch{
+            print("cant encode emojiArt due to \(error)")
+            return Data()
+        }
+    }
+    
+    
 }

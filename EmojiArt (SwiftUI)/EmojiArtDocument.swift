@@ -11,29 +11,25 @@ class EmojiArtDocument : ObservableObject{
         didSet {
             if emojiArt.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
+                autoSave()
             }
         }
     }
     
     init(){
         self.emojiArt = EmojiArtModel()
-                emojiArt.addEmoji("🚌", at: (-200, -100), size: 80)
-                emojiArt.addEmoji("😷", at: (50, 100), size: 40)
-
-    }
+               }
     
     var background : EmojiArtModel.Background{emojiArt.background}
     var emojis : [EmojiArtModel.Emoji]{emojiArt.emojis}
     @Published var backgroundImage: UIImage?
     @Published var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
 
-    
     enum BackgroundImageFetchStatus {
         case idle
         case fetching
     }
 
-    
     private func fetchBackgroundImageDataIfNecessary() {
         backgroundImage = nil
         switch emojiArt.background {
@@ -56,13 +52,44 @@ class EmojiArtDocument : ObservableObject{
             break
         }
     }
-
+ 
+    private struct AutoSave{
+        static  let fileName = "autoSaved document"
+        static var url : URL?{
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            return documentDirectory?.appendingPathComponent(fileName)
+        }
+    }
+    
         
     // MARK: - Intent(s)
+    private func autoSave(){
+        if let url = AutoSave.url{
+            save(to: url)
+        }
+    }
+    
+    
+    
+    private func save(to url : URL) {
+        let thisFunction = "String(describing: \(self)).\(#function)"
+        do{
+            let data : Data = try emojiArt.json()
+            print("\(thisFunction) json =  \(String(data: data, encoding: .utf8) ?? "nil") ")
+            try data.write(to: url)
+            print("\(thisFunction) success!")
+
+        }
+        catch let encodingError where encodingError is EncodingError{
+            print("\(thisFunction) can't encode this data because \(encodingError)")
+        }
+        catch {
+            print("\(thisFunction) can't encode this data because \(error.localizedDescription)")
+        }
+    }
     
     func setBackground(_ background: EmojiArtModel.Background) {
         emojiArt.background = background
-        
     }
     
     func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat) {
