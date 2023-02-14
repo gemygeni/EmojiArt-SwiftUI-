@@ -27,6 +27,21 @@ private var uniqueEmojiId = 0
         }
     }
     
+    init(json : Data) throws{
+        self = try JSONDecoder().decode(EmojiArtModel.self, from: json)
+    }
+
+    
+    init(url : URL) throws{
+        let data = try Data(contentsOf: url)
+            self = try EmojiArtModel(json: data)
+       }
+    
+    
+    
+    
+    
+    
     mutating func addEmoji(_ text: String, at location: (x: Int, y: Int), size: Int) {
         uniqueEmojiId += 1
         emojis.append(Emoji(text: text, id: uniqueEmojiId, x: location.x, y: location.y, size: size))
