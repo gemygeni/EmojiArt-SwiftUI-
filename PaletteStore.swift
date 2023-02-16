@@ -17,7 +17,7 @@ struct Palette: Identifiable, Codable{
 }
 
 import SwiftUI
-class PaletteStore: ObservedObject{
+class PaletteStore: ObservableObject{
     let name: String
     @Published var palettes = [Palette]() {
         didSet {
