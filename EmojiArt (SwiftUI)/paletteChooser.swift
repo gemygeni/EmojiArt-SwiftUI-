@@ -10,23 +10,24 @@
     struct paletteChooser: View {
         var emojiFontSize: CGFloat = 40
         var emojiFont: Font { .system(size: emojiFontSize) }
-        @State private var choosenPaletteIndex = 0
+        @State private var chosenPaletteIndex = 0
 
         @EnvironmentObject var store : PaletteStore
         var body: some View {
             HStack{
                 paletteControlButton
-                body(for: store.palette(at: choosenPaletteIndex))
+                body(for: store.palette(at: chosenPaletteIndex))
             }.clipped()
         }
         var paletteControlButton : some View{
                 Button {
                     withAnimation {
-                        choosenPaletteIndex = (choosenPaletteIndex + 1) % store.palettes.count
+                        chosenPaletteIndex = (chosenPaletteIndex + 1) % store.palettes.count
                     }
                 } label: {
                     Image(systemName: "paintpalette")
                 }.font(emojiFont)
+                .contextMenu{contextMenu}
            }
         
         func body(for palette: Palette) -> some View {
@@ -43,6 +44,18 @@
             )
         }
 
+        @ViewBuilder
+        var contextMenu: some View {
+            AnimatedActionButton(title: "New", systemImage: "plus") {
+                store.insertPalette(named: "New", emojis: "", at: chosenPaletteIndex)
+            }
+
+            AnimatedActionButton(title: "Delete", systemImage: "minus.circle") {
+                chosenPaletteIndex = store.removePalette(at: chosenPaletteIndex)
+            }
+            
+
+        }
         
     }
 
