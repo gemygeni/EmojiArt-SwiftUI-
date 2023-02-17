@@ -52,7 +52,6 @@
         @ViewBuilder
         var contextMenu: some View {
             AnimatedActionButton(title: "Edit", systemImage: "pencil") {
-               // editing = true
                 paletteToEdit = store.palette(at: chosenPaletteIndex)
             }
 
