@@ -11,11 +11,11 @@
         var emojiFontSize: CGFloat = 40
         var emojiFont: Font { .system(size: emojiFontSize) }
         @State private var chosenPaletteIndex = 0
-
         @EnvironmentObject var store : PaletteStore
         var body: some View {
             HStack{
                 paletteControlButton
+                Text(store.palette(at: chosenPaletteIndex).name)
                 body(for: store.palette(at: chosenPaletteIndex))
             }.clipped()
         }
@@ -34,9 +34,14 @@
             HStack {
                 ScrollingEmojisView(emojis: palette.emojis)
                     .font(.system(size: emojiFontSize))
-            }.transition(rollTransition)
+            .transition(rollTransition)
                 .id(palette.id)
-        }
+                .popover(item: $paletteToEdit, content: { palette in
+                    paletteEditor(palette: $store.palettes[palette])
+                }
+                
+                    )}
+          }
         var rollTransition: AnyTransition {
             AnyTransition.asymmetric(
                 insertion: .offset(x: 0, y: emojiFontSize),
@@ -46,8 +51,15 @@
 
         @ViewBuilder
         var contextMenu: some View {
+            AnimatedActionButton(title: "Edit", systemImage: "pencil") {
+               // editing = true
+                paletteToEdit = store.palette(at: chosenPaletteIndex)
+            }
+
+            
             AnimatedActionButton(title: "New", systemImage: "plus") {
                 store.insertPalette(named: "New", emojis: "", at: chosenPaletteIndex)
+                editing = true
             }
 
             AnimatedActionButton(title: "Delete", systemImage: "minus.circle") {
@@ -73,9 +85,9 @@
 
         }
         
+        @State var editing = false
         
-        
-        
+        @State private var paletteToEdit : Palette?
         
         
         

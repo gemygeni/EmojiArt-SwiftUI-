@@ -4,7 +4,7 @@
 //
 //  Created by AHMED GAMAL  on 14/02/2023.
 //
-struct Palette: Identifiable, Codable{
+struct Palette: Identifiable, Codable, Hashable{
     var name: String
     var emojis: String
     var id: Int
