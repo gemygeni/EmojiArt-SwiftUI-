@@ -49,7 +49,6 @@
 		EFBA89CD298B047D006E42BA = {
 			isa = PBXGroup;
 			children = (
-				EF141484299BF38E00AE983A /* PaletteStore.swift */,
 				EFBA89D8298B047D006E42BA /* EmojiArt (SwiftUI) */,
 				EFBA89D7298B047D006E42BA /* Products */,
 			);
@@ -66,6 +65,7 @@
 		EFBA89D8298B047D006E42BA /* EmojiArt (SwiftUI) */ = {
 			isa = PBXGroup;
 			children = (
+				EF141484299BF38E00AE983A /* PaletteStore.swift */,
 				EFBA89EB298B0807006E42BA /* EmojiArtDocument.swift */,
 				EFBA89E7298B0556006E42BA /* EmjiArtModel.swift */,
 				EFBA89E9298B0582006E42BA /* EmojiArtBackground.swift */,

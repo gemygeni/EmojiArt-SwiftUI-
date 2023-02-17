@@ -57,9 +57,6 @@ class PaletteStore: ObservableObject{
     }
 
     
-    
-    
-    
     // MARK: - Intent
     
     func palette(at index: Int) -> Palette {
