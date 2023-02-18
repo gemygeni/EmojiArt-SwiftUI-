@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 class EmojiArtDocument : ObservableObject{
     @Published private(set) var emojiArt : EmojiArtModel{
         didSet {
@@ -16,6 +17,7 @@ class EmojiArtDocument : ObservableObject{
         }
     }
     
+    
     init(){
         if let url = AutoSave.url, let autoSavedDocument = try? EmojiArtModel(url: url){
          emojiArt = autoSavedDocument
@@ -25,6 +27,7 @@ class EmojiArtDocument : ObservableObject{
            }
         }
     
+    private var backgroundImageFetchCancelable : AnyCancellable?
     var background : EmojiArtModel.Background{emojiArt.background}
     var emojis : [EmojiArtModel.Emoji]{emojiArt.emojis}
     @Published var backgroundImage: UIImage?
@@ -41,20 +44,40 @@ class EmojiArtDocument : ObservableObject{
         switch emojiArt.background {
         case .url(let url):
             backgroundImageFetchStatus = .fetching
-            DispatchQueue.global(qos: .userInitiated).async {
-                let imageData = try? Data(contentsOf: url)
-                DispatchQueue.main.async { [weak self] in
-                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
-                        self?.backgroundImageFetchStatus = .idle
-                        if imageData != nil {
-                            self?.backgroundImage = UIImage(data: imageData!)
-                        }
-                        if self?.backgroundImage == nil{
-                        self?.backgroundImageFetchStatus = .failed(url)
-                        }
-                    }
-                }
-            }
+            backgroundImageFetchCancelable?.cancel()
+            let session = URLSession.shared
+            let publisher = session.dataTaskPublisher(for: url)
+                .map{(data, response) in UIImage(data: data)}
+                .replaceError(with: nil)
+                .receive(on: DispatchQueue.main)
+            
+            backgroundImageFetchCancelable = publisher
+                //.assign(to: \EmojiArtDocument.backgroundImage, on: self)
+                .sink(receiveValue: {[weak self] image in
+                    self?.backgroundImage = image
+                    self?.backgroundImageFetchStatus = image == nil ? .failed(url) : .idle
+                })
+            
+            
+            
+            
+            
+            
+            
+//            DispatchQueue.global(qos: .userInitiated).async {
+//                let imageData = try? Data(contentsOf: url)
+//                DispatchQueue.main.async { [weak self] in
+//                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
+//                        self?.backgroundImageFetchStatus = .idle
+//                        if imageData != nil {
+//                            self?.backgroundImage = UIImage(data: imageData!)
+//                        }
+//                        if self?.backgroundImage == nil{
+//                        self?.backgroundImageFetchStatus = .failed(url)
+//                        }
+//                    }
+//                }
+//            }
         case .imageData(let data):
             backgroundImage = UIImage(data: data)
         case .blank:
