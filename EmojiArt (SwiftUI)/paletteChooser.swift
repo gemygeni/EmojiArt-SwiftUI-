@@ -56,7 +56,7 @@
 
         @ViewBuilder
         var contextMenu: some View {
-            AnimatedActionButton(title: "Manager", systemImage: "pencil") {
+            AnimatedActionButton(title: "Manager", systemImage: "slider.vertical.3") {
                 managing = true
             }
 
