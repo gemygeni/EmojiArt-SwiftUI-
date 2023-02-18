@@ -16,8 +16,6 @@ struct paletteEditor: View {
             removeEmojiSection
         }
         .frame(minWidth: 350, minHeight: 400)
-    
-        
     }
     
     var nameSection : some View{
@@ -55,19 +53,12 @@ struct paletteEditor: View {
                                 palette.emojis.removeAll(where: { String($0) == emoji })
                             }
                         }
-                }
+                  }
             }
             .font(.system(size: 40))
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
 }
 
 

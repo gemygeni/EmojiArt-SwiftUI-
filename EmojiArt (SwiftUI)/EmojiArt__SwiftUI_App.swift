@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct EmojiArt__SwiftUI_App: App {
-  @StateObject var document = EmojiArtDocument()
+   @StateObject var document = EmojiArtDocument()
    @StateObject var paletteStore = PaletteStore(named: "Default")
     var body: some Scene {
         WindowGroup {
