@@ -55,11 +55,13 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .onReceive(document.$backgroundImage) { image in
-                zoomToFit(image, in: geometry.size)
+                if autozoom { // L14 only "auto zoom" when drag and drop happens
+                    zoomToFit(image, in: geometry.size)
+                }
             }
         }
     }
-    
+    @State private var autozoom = false
     // MARK: - Alert
     @State private var alertToShow: IdentifiableAlert?
 
@@ -79,11 +81,13 @@ struct EmojiArtDocumentView: View {
     
     private func drop(providers: [NSItemProvider], at location: CGPoint, in geometry: GeometryProxy) -> Bool {
         var found = providers.loadObjects(ofType: URL.self) { url in
+            autozoom = true
             document.setBackground(.url(url.imageURL))
         }
         if !found {
             found = providers.loadObjects(ofType: UIImage.self) { image in
                 if let data = image.jpegData(compressionQuality: 1.0) {
+                    autozoom = true
                     document.setBackground(.imageData(data))
                 }
             }
@@ -130,7 +134,7 @@ struct EmojiArtDocumentView: View {
     
     
     // MARK: - Zooming
-    @State private var steadyStateZoomScale: CGFloat = 1
+    @SceneStorage("EmojiArtDocumentView.steadyStateZoomScale") private var steadyStateZoomScale: CGFloat = 1
     @GestureState private var gestureZoomScale: CGFloat = 1
     
     private var zoomScale: CGFloat {
@@ -167,7 +171,8 @@ struct EmojiArtDocumentView: View {
     
     
     // MARK: - Panning
-    @State private var steadyStatePanOffset: CGSize = CGSize.zero
+    @SceneStorage("EmojiArtDocumentView.steadyStatePanOffset")
+    private var steadyStatePanOffset: CGSize = CGSize.zero
     @GestureState private var gesturePanOffset: CGSize = CGSize.zero
     private var panOffset: CGSize {
         (steadyStatePanOffset + gesturePanOffset) * zoomScale
