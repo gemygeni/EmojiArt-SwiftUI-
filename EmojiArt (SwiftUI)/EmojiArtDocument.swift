@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import UniformTypeIdentifiers
 extension UTType{
-    static let emojiart = UTType(exportedAs: "ahmedgamal.EmojiArt--SwiftUI-emojiart")
+    static let emojiart = UTType(exportedAs: "edu.stanford.cs193p.emojiart")
 }
 
 class EmojiArtDocument : ReferenceFileDocument{
@@ -143,26 +143,46 @@ class EmojiArtDocument : ReferenceFileDocument{
 //        }
 //    }
     
-    func setBackground(_ background: EmojiArtModel.Background) {
-        emojiArt.background = background
-    }
-    
-    func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat) {
-        emojiArt.addEmoji(emoji, at: location, size: Int(size))
-    }
-    
-    func moveEmoji(_ emoji: EmojiArtModel.Emoji, by offset: CGSize) {
-        if let index = emojiArt.emojis.index(matching: emoji) {
-            emojiArt.emojis[index].x += Int(offset.width)
-            emojiArt.emojis[index].y += Int(offset.height)
+    func setBackground(_ background: EmojiArtModel.Background, undoManager: UndoManager?) {
+        undoablyPerform(operation: "Set Background", with: undoManager) {
+            emojiArt.background = background
         }
     }
     
-    func scaleEmoji(_ emoji: EmojiArtModel.Emoji, by scale: CGFloat) {
-        if let index = emojiArt.emojis.index(matching: emoji) {
-            emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
+    func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat, undoManager: UndoManager?) {
+        undoablyPerform(operation: "Add \(emoji)", with: undoManager) {
+            emojiArt.addEmoji(emoji, at: location, size: Int(size))
         }
     }
     
+    func moveEmoji(_ emoji: EmojiArtModel.Emoji, by offset: CGSize, undoManager: UndoManager?) {
+        if let index = emojiArt.emojis.index(matching: emoji) {
+            undoablyPerform(operation: "Move", with: undoManager) {
+                emojiArt.emojis[index].x += Int(offset.width)
+                emojiArt.emojis[index].y += Int(offset.height)
+            }
+        }
+    }
+    
+    func scaleEmoji(_ emoji: EmojiArtModel.Emoji, by scale: CGFloat, undoManager: UndoManager?) {
+        if let index = emojiArt.emojis.index(matching: emoji) {
+            undoablyPerform(operation: "Scale", with: undoManager) {
+                emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
+            }
+        }
+    }
+    // MARK: - Undo
+    
+    private func undoablyPerform(operation: String, with undoManager: UndoManager? = nil, doit: () -> Void) {
+        let oldEmojiArt = emojiArt
+        doit()
+        undoManager?.registerUndo(withTarget: self) { myself in
+            myself.undoablyPerform(operation: operation, with: undoManager) {
+                myself.emojiArt = oldEmojiArt
+            }
+        }
+        undoManager?.setActionName(operation)
+    }
+
 
 }
