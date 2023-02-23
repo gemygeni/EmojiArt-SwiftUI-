@@ -41,6 +41,9 @@
                 .id(palette.id)
                 .popover(item: $paletteToEdit, content: { palette in
                     paletteEditor(palette: $store.palettes[palette])
+                        .wrappedInNavigationViewToMakeDismissable {
+                            paletteToEdit = nil
+                        }
                 }
                 ).sheet(isPresented: $managing) {
                     PaletteManager()
@@ -91,13 +94,6 @@
                 Label("Go To", systemImage: "text.insert")
             }
         }
-        
-        
-        
-        
-        
-        
-        
     }
 
     struct ScrollingEmojisView: View {

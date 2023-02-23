@@ -56,7 +56,7 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .onReceive(document.$backgroundImage) { image in
-                if autozoom { // L14 only "auto zoom" when drag and drop happens
+                if autozoom { 
                     zoomToFit(image, in: geometry.size)
                 }
             }
