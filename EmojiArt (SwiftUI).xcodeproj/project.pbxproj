@@ -28,6 +28,7 @@
 		EF13E85C299EEF1400E0B6D0 /* UtilityViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
 		EF13E85E299F9A5300E0B6D0 /* paletteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paletteEditor.swift; sourceTree = "<group>"; };
 		EF141484299BF38E00AE983A /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
+		EFB8165F29A6F03600067DC1 /* EmojiArt--SwiftUI--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "EmojiArt--SwiftUI--Info.plist"; sourceTree = SOURCE_ROOT; };
 		EFBA89D6298B047D006E42BA /* EmojiArt (SwiftUI).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EmojiArt (SwiftUI).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFBA89D9298B047D006E42BA /* EmojiArt__SwiftUI_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArt__SwiftUI_App.swift; sourceTree = "<group>"; };
 		EFBA89DB298B047D006E42BA /* EmojiArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocumentView.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		EFBA89D8298B047D006E42BA /* EmojiArt (SwiftUI) */ = {
 			isa = PBXGroup;
 			children = (
+				EFB8165F29A6F03600067DC1 /* EmojiArt--SwiftUI--Info.plist */,
 				EF141484299BF38E00AE983A /* PaletteStore.swift */,
 				EFCD87E029A060B70028C6B5 /* PaletteManager.swift */,
 				EF13E85E299F9A5300E0B6D0 /* paletteEditor.swift */,
@@ -306,6 +308,7 @@
 				DEVELOPMENT_TEAM = 376L6GYCXP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "EmojiArt--SwiftUI--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -335,6 +338,7 @@
 				DEVELOPMENT_TEAM = 376L6GYCXP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "EmojiArt--SwiftUI--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

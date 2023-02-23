@@ -7,24 +7,49 @@
 
 import SwiftUI
 import Combine
-class EmojiArtDocument : ObservableObject{
+import UniformTypeIdentifiers
+extension UTType{
+    static let emojiart = UTType(exportedAs: "ahmedgamal.EmojiArt--SwiftUI-emojiart")
+}
+
+class EmojiArtDocument : ReferenceFileDocument{
+    static var readableContentTypes = [UTType.emojiart]
+    static var writeableContentTypes = [UTType.emojiart]
+
+    func snapshot(contentType: UTType) throws -> Data {
+        return try  emojiArt.json()
+    }
+    
+    func fileWrapper(snapshot: Data, configuration: WriteConfiguration) throws -> FileWrapper {
+        return FileWrapper(regularFileWithContents: snapshot)
+    }
+    
+    required init(configuration: ReadConfiguration) throws {
+        if let data = configuration.file.regularFileContents{
+          emojiArt = try EmojiArtModel(json: data)
+            fetchBackgroundImageDataIfNecessary()
+        }else{
+            throw CocoaError(.fileReadCorruptFile)
+        }
+    }
+
     @Published private(set) var emojiArt : EmojiArtModel{
         didSet {
             if emojiArt.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
-                autoSave()
+             //   autoSave()
             }
         }
     }
     
     
     init(){
-        if let url = AutoSave.url, let autoSavedDocument = try? EmojiArtModel(url: url){
-         emojiArt = autoSavedDocument
-        fetchBackgroundImageDataIfNecessary()
-        }else{
+//        if let url = AutoSave.url, let autoSavedDocument = try? EmojiArtModel(url: url){
+//         emojiArt = autoSavedDocument
+//        fetchBackgroundImageDataIfNecessary()
+//        }else{
             self.emojiArt = EmojiArtModel()
-           }
+  //         }
         }
     
     private var backgroundImageFetchCancelable : AnyCancellable?
@@ -85,40 +110,38 @@ class EmojiArtDocument : ObservableObject{
         }
     }
  
-    private struct AutoSave{
-        static  let fileName = "autoSaved document"
-        static var url : URL?{
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            return documentDirectory?.appendingPathComponent(fileName)
-        }
-    }
+//    private struct AutoSave{
+//        static  let fileName = "autoSaved document"
+//        static var url : URL?{
+//            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+//            return documentDirectory?.appendingPathComponent(fileName)
+//        }
+//    }
     
         
     // MARK: - Intent(s)
-    private func autoSave(){
-        if let url = AutoSave.url{
-            save(to: url)
-        }
-    }
+//    private func autoSave(){
+//        if let url = AutoSave.url{
+//            save(to: url)
+//        }
+//    }
     
-    
-    
-    private func save(to url : URL) {
-        let thisFunction = "String(describing: \(self)).\(#function)"
-        do{
-            let data : Data = try emojiArt.json()
-            print("\(thisFunction) json =  \(String(data: data, encoding: .utf8) ?? "nil") ")
-            try data.write(to: url)
-            print("\(thisFunction) success!")
-
-        }
-        catch let encodingError where encodingError is EncodingError{
-            print("\(thisFunction) can't encode this data because \(encodingError)")
-        }
-        catch {
-            print("\(thisFunction) can't encode this data because \(error.localizedDescription)")
-        }
-    }
+//    private func save(to url : URL) {
+//        let thisFunction = "String(describing: \(self)).\(#function)"
+//        do{
+//            let data : Data = try emojiArt.json()
+//            print("\(thisFunction) json =  \(String(data: data, encoding: .utf8) ?? "nil") ")
+//            try data.write(to: url)
+//            print("\(thisFunction) success!")
+//
+//        }
+//        catch let encodingError where encodingError is EncodingError{
+//            print("\(thisFunction) can't encode this data because \(encodingError)")
+//        }
+//        catch {
+//            print("\(thisFunction) can't encode this data because \(error.localizedDescription)")
+//        }
+//    }
     
     func setBackground(_ background: EmojiArtModel.Background) {
         emojiArt.background = background
@@ -140,5 +163,6 @@ class EmojiArtDocument : ObservableObject{
             emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
         }
     }
+    
 
 }
