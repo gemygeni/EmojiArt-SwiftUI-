@@ -66,7 +66,7 @@ struct EmojiArtDocumentView: View {
                     redo: undoManager?.optionalRedoMenuItemTitle
                 )
                 AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
-                  //  pasteBackground()
+                    pasteBackground()
                 }
                 if let undoManager = undoManager {
                     if undoManager.canUndo {
@@ -83,6 +83,21 @@ struct EmojiArtDocumentView: View {
             }
         }
     }
+    
+    private func pasteBackground() {
+        autozoom = true
+        if let imageData = UIPasteboard.general.image?.jpegData(compressionQuality: 1.0)  {
+            document.setBackground(.imageData(imageData), undoManager: undoManager)
+        } else if let url = UIPasteboard.general.url?.imageURL {
+            document.setBackground(.url(url), undoManager: undoManager)
+        } else {
+            alertToShow = IdentifiableAlert(
+                title: "Paste Background",
+                message: "There is no image currently on the pasteboard."
+            )
+        }
+    }
+
     @State private var autozoom = false
     // MARK: - Alert
     @State private var alertToShow: IdentifiableAlert?
